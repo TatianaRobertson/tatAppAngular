@@ -15,9 +15,13 @@ export class DishService {
   }
 
   getDish(id:string): Dish{
-    return DISHES.filter((dishX)=>{
-      (dishX.id === id)
-    })[0];
+   let returnedDish: Dish;
+   for (let dish of DISHES){
+      if(dish.id === id){
+        returnedDish = dish;
+      }
+   }
+   return returnedDish;
   }
 
   // getDish(id:string): Dish{
