@@ -24,6 +24,14 @@ export class DishService {
    return returnedDish;
   }
 
+/*
+getDish(id:string): Dish{
+  return DISHES.filter((dishX)=>{
+        (dishX.id === id)
+      })[0];
+}
+  */
+
   // getDish(id:string): Dish{
   //   return DISHES.filter( function(bob){
   //     return bob.id === id;
