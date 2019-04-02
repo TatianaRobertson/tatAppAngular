@@ -20,16 +20,24 @@ fxLayoutGap.xs="0">
         <p>{{dish.description}}</p>
       </mat-card-content>
       <mat-card-actions>
+        <button mat-raised-button [routerLink]="['/dishdetail',prev]">
+          <span class="fa fa-chevron-left fa-lg"></span>
+        </button>
         <button mat-stroked-button>LIKE</button>
         <button mat-raised-button>SHARE</button>
         <button mat-raised-button (click)="goBack()">BACK</button>
+        <button mat-raised-button [routerLink]="['/dishdetail',next]">
+          <span class="fa fa-chevron-right fa-lg"></span>
+        </button>
+        <span class="flex-spacer"></span>
+
       </mat-card-actions>
     </mat-card>
 
   </div>
 
-  <div fxFlex="40">
-    <mat-list *ngIf="dish">
+  <div fxFlex="40" *ngIf="dish">
+    <mat-list >
     <h3> Comments </h3>
       <mat-list-item *ngFor="let comment of dish.comments">
         <h3 matLine> {{comment.comment}} </h3>
