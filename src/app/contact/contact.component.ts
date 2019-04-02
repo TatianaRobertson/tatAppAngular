@@ -22,30 +22,30 @@ export class ContactComponent implements OnInit {
   }
 
   validationMessages = {
-      'firstname': {
-        'required':      'First Name is required.',
-        'minlength':     'First Name must be at least 2 characters long.',
-        'maxlength':     'FirstName cannot be more than 25 characters long.'
-      },
-      'lastname': {
-        'required':      'Last Name is required.',
-        'minlength':     'Last Name must be at least 2 characters long.',
-        'maxlength':     'Last Name cannot be more than 25 characters long.'
-      },
-      'telnum': {
-        'required':      'Tel. number is required.',
-        'pattern':       'Tel. number must contain only numbers.'
-      },
-      'email': {
-        'required':      'Email is required.',
-        'email':         'Email not in valid format.'
-      },
-    };
+    'firstname': {
+      'required':      'First Name is required.',
+      'minlength':     'First Name must be at least 2 characters long.',
+      'maxlength':     'FirstName cannot be more than 25 characters long.'
+    },
+    'lastname': {
+      'required':      'Last Name is required.',
+      'minlength':     'Last Name must be at least 2 characters long.',
+      'maxlength':     'Last Name cannot be more than 25 characters long.'
+    },
+    'telnum': {
+      'required':      'Tel. number is required.',
+      'pattern':       'Tel. number must contain only numbers.'
+    },
+    'email': {
+      'required':      'Email is required.',
+      'email':         'Email not in valid format.'
+    }
+  };
 
 
   constructor(private fb:FormBuilder) {
     this.createForm();
-   }
+  }
 
   ngOnInit() {
   }
@@ -62,7 +62,7 @@ export class ContactComponent implements OnInit {
     })
 
     this.feedbackForm.valueChanges
-      .subscribe(data => this.onValueChanged(data));
+    .subscribe(data => this.onValueChanged(data));
 
     this.onValueChanged(); //to reset form validation messages
   }
@@ -84,10 +84,8 @@ export class ContactComponent implements OnInit {
             }
           }
         }
-
       }
     }
-
   }
 
   onSubmit(){
