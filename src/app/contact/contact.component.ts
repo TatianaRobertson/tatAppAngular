@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback, ContactType } from '../shared/feedback';
 import { flyInOut } from '../animations/app.animation';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'app-contact',
@@ -16,6 +17,10 @@ export class ContactComponent implements OnInit {
   feedbackForm: FormGroup;
   feedback: Feedback;
   contactType= ContactType;
+
+  errMess: string;
+  feedbackcopy: Feedback;
+  startSpinner: boolean;
   @ViewChild('fform') feedbackFormDirective;
 
   formErrors ={
@@ -47,11 +52,13 @@ export class ContactComponent implements OnInit {
   };
 
 
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder,
+              private feedbackService: FeedbackService ) {
     this.createForm();
   }
 
   ngOnInit() {
+
   }
 
   createForm(){
@@ -95,6 +102,17 @@ export class ContactComponent implements OnInit {
   onSubmit(){
     this.feedback = this.feedbackForm.value;
     console.log(this.feedback);
+    this.startSpinner = true;
+    this.feedbackService.postFeedback(this.feedback)
+        .subscribe(feedback => {this.feedback = feedback;
+                            this.feedbackcopy = feedback;
+                            },
+                errmess => {this.feedback = null;
+                            this.feedbackcopy = null;
+                            this.errMess = <any>errmess;})
+      console.log("errmess="+this.errMess+"   this.feedback="+this.feedback+" this.feedbackcopy="+this.feedbackcopy);
+
+
     this.feedbackForm.reset({
       firstname: '',
       lastname: '',
@@ -104,6 +122,16 @@ export class ContactComponent implements OnInit {
       contacttype: 'None',
       message: ''
     });
-    this.feedbackFormDirective.resetForm();
+   this.feedbackFormDirective.resetForm();
+   setTimeout(()=>{ console.log("  before timeout errmess="+this.errMess+"   this.feedback="+this.feedback+" this.feedbackcopy="+this.feedbackcopy);
+                    this.feedbackcopy = null;
+                     console.log("  after timeout errmess="+this.errMess+"   this.feedback="+this.feedback+" this.feedbackcopy="+this.feedbackcopy);
+                    this.startSpinner = false
+                  }, 5000);
+
   }
+
+
+
+
 }
